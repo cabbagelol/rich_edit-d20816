@@ -5,9 +5,13 @@ import 'package:rich_edit/rich_edit.dart';
 import 'package:video_player/video_player.dart';
 
 class SimpleRichEditController extends RichEditController {
-
   Map<String, ChewieController> controllers = Map();
 
+  final context;
+
+  final theme;
+
+  SimpleRichEditController(this.context, {this.theme});
 
   @override
   Future<String> addVideo() async {

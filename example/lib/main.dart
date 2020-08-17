@@ -13,8 +13,31 @@ void main() {
   );
 }
 
-class Home extends StatelessWidget {
-  SimpleRichEditController _richEditController = SimpleRichEditController();
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  SimpleRichEditController _richEditController;
+
+  @override
+  void initState() {
+    setState(() {
+      _richEditController = SimpleRichEditController(
+        context,
+        theme: RichEditTheme(
+          mainColor: Colors.amber,
+        ),
+      );
+
+      /// 设置初始内容
+      _richEditController.generateView(
+        '<p>初始内容</p><p>我俩从昨晚 到现在 总是会时不时掉一个</p>',
+      );
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +57,51 @@ class Home extends StatelessWidget {
         ],
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          // 可视视图
           Expanded(
             flex: 1,
-            child: RichEdit(
-              _richEditController,
+            child: Container(
+              color: Color(0xffffffff),
+              child: RichEdit(
+                _richEditController,
+              ),
             ),
           ),
-          RichEditToolbar(
-            _richEditController,
-            children: <RichEditTool>[
-              RichEditToolText(),
-              RichEditToolImages(),
-              RichEditToolVideo(),
-            ],
+
+          // 工具栏
+          Container(
+            decoration: BoxDecoration(
+              color: Color(0xffffffff),
+              border: Border(
+                top: BorderSide(
+                  width: 1,
+                  color: Colors.black12,
+                ),
+              ),
+            ),
+            child: RichEditToolbar(
+              _richEditController,
+              children: <RichEditTool>[
+                // 添加文本
+                RichEditToolText(
+                  disable: false,
+                ),
+                // 添加图片
+                RichEditToolImages(),
+                // 添加媒体
+                RichEditToolVideo(),
+                // 空白容器
+                RichEditToolSizedBox(
+                  flex: 1,
+                ),
+                // 垃圾箱
+                RichEditToolClear(context),
+                //  键盘状态
+                RichEditToolKeyboardSwitch(context),
+              ],
+            ),
           ),
         ],
       ),
