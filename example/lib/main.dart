@@ -8,6 +8,9 @@ import 'package:webview_flutter/webview_flutter.dart';
 void main() {
   runApp(
     MaterialApp(
+      theme: ThemeData(
+        platform: TargetPlatform.iOS,
+      ),
       home: Home(),
     ),
   );
@@ -33,7 +36,7 @@ class _HomeState extends State<Home> {
 
       /// 设置初始内容
       _richEditController.generateView(
-        '<p>初始内容</p><p>我俩从昨晚 到现在 总是会时不时掉一个</p>',
+        '<p>在Flutter使用FocusNode来捕捉监听TextField的焦点获取与失去，同时也可通过FocusNode来使用绑定对应的TextField获取焦点与失去焦点，FocusNode的使用分四步，如下：</p><p>我俩从昨晚 到现在 总是会时不时掉一个</p>',
       );
     });
     super.initState();
@@ -43,6 +46,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.send),
@@ -63,7 +67,7 @@ class _HomeState extends State<Home> {
           Expanded(
             flex: 1,
             child: Container(
-              color: Color(0xffffffff),
+              color: Color(0xfff2f2f2),
               child: RichEdit(
                 _richEditController,
               ),
@@ -73,7 +77,7 @@ class _HomeState extends State<Home> {
           // 工具栏
           Container(
             decoration: BoxDecoration(
-              color: Color(0xffffffff),
+              color: Colors.white,
               border: Border(
                 top: BorderSide(
                   width: 1,
@@ -97,7 +101,7 @@ class _HomeState extends State<Home> {
                   flex: 1,
                 ),
                 // 垃圾箱
-                RichEditToolClear(context),
+                RichEditToolClear(),
                 //  键盘状态
                 RichEditToolKeyboardSwitch(context),
               ],

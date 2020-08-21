@@ -123,7 +123,9 @@ class RichEditToolText extends StatelessWidget implements RichEditTool {
           }
 
           controller.addView(
-            RichEditData(RichEditDataType.TEXT, ""),
+            RichEditData(
+              RichEditDataType.TEXT,
+            ),
           );
         },
         child: this.child,
@@ -173,7 +175,7 @@ class RichEditToolImages extends StatelessWidget implements RichEditTool {
 
           if (path != null) {
             controller.addView(
-              RichEditData(RichEditDataType.IMAGE, path),
+              RichEditData(RichEditDataType.IMAGE, data: path),
             );
           }
         },
@@ -224,7 +226,7 @@ class RichEditToolVideo extends StatelessWidget implements RichEditTool {
 
           if (path != null) {
             controller.addView(
-              RichEditData(RichEditDataType.VIDEO, path),
+              RichEditData(RichEditDataType.VIDEO, data: path),
             );
           }
         },
@@ -243,8 +245,6 @@ class RichEditToolVideo extends StatelessWidget implements RichEditTool {
 class RichEditToolClear extends StatelessWidget implements RichEditTool {
   final RichEditToolbarType type = RichEditToolbarType.CLEAR;
 
-  final BuildContext context;
-
   final Color disabledColor;
 
   final Color color;
@@ -253,8 +253,7 @@ class RichEditToolClear extends StatelessWidget implements RichEditTool {
 
   final bool disable;
 
-  RichEditToolClear(
-    this.context, {
+  RichEditToolClear({
     this.disabledColor,
     this.color,
     this.flex = 0,
@@ -262,6 +261,7 @@ class RichEditToolClear extends StatelessWidget implements RichEditTool {
   });
 
   VoidCallback _onClearTap() {
+
     List list = controller.getDataList();
 
     if (list.length <= 1 && list[0].data.toString().length <= 0) {
@@ -275,15 +275,20 @@ class RichEditToolClear extends StatelessWidget implements RichEditTool {
 
   @override
   Widget build(BuildContext context) {
-    return RichEditTool(
-      child: IconButton(
-        disabledColor: disabledColor ?? Colors.black12,
-        color: color ?? RichEditTheme().mainColor,
-        icon: Icon(Icons.delete),
-        onPressed: _onClearTap(),
-      ),
-      flex: flex,
-      disable: disable,
+    return Row(
+      children: [
+        RichEditTool(
+          child: IconButton(
+            disabledColor: disabledColor ?? Colors.black12,
+            color: color ?? RichEditTheme().mainColor,
+            icon: Icon(Icons.delete),
+            onPressed: _onClearTap(),
+          ),
+          flex: flex,
+          disable: disable,
+        ),
+        Text(controller.getDataList().length.toString()),
+      ],
     );
   }
 
