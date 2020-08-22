@@ -173,6 +173,9 @@ Pods/
 # Files and directories created by pub
 .packages
 .pub/
+.dart_tool
+.idea
+
 # If you're building an application, you may want to check-in your pubspec.lock
 pubspec.lock
 
@@ -345,5 +348,7 @@ playground.xcworkspace
 
 # Build files
 build/
+android/
+ios/
 
 # End of https://www.gitignore.io/api/dart,swift,xcode,android,intellij,cocoapods,objective-c,androidstudio
